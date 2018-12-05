@@ -4408,8 +4408,7 @@ const githubData = [
       }
     }
   ]
-  // Use your knowledge of array iteration, and object property dot notation to answer the following questions about the data.
-
+// Use your knowledge of array iteration, and object property dot notation to answer the following questions about the data.
 // How many total commits were made in all of Steve's events?
 // How many of each event type are there? (PullRequestEvent, PushEvent, etc)
 // List all Github users who submitted a pull request that was approved by Steve.
@@ -4440,24 +4439,37 @@ console.log(`Answer 1: ${commits} total commits.`);
 /*******************************************************/
 // Question 2. How many of each event type are there? (PullRequestEvent, PushEvent, etc)
 
-//List in console to view.
-console.log(githubData); 
-let typeArray = [];
+// Answer 2.
 
-// Create an array to grab the type values.
+//Add gitHubData Array to console for reference.
+console.log(githubData);
+
+// declare some dope variables.
+let createEvent = 0;
+let deleteEvent = 0;
+let issueEvent = 0;
+let pullEvent = 0;
+let pushEvent = 0;
+
+// Setup to do some loops.
+
 for (let i = 0; i < githubData.length; i++) {
-  typeArray.push(githubData[i].type);
-} 
-typeArray.sort();
-const loop = typeArray.length;
-for (i = 0; i < loop; i++) {
-    let first = typeArray[i];
-    let second = typeArray[i+1];
-    console.log(typeArray);
-    if (first === (second)) {
-      typeArray.splice(1, 1);
-    };
-  }
-console.log(typeof(typeArray));
+  if (githubData[i].type ==="CreateEvent") {
+    createEvent++;
+  };
+  if ("DeleteEvent" === githubData[i].type) {
+    deleteEvent++;
+  };
+  if ("IssueCommentEvent" === githubData[i].type) {
+    issueEvent++;
+  };
+  if ("PullRequestEvent" === githubData[i].type) {
+    pullEvent++;
+  };
+  if ("PushEvent" === githubData[i].type) {
+    pushEvent++;
+  };
+};
 
-// Answer 2. 
+console.log(`Answer 2: There are ${createEvent} CreateEvents, ${deleteEvent} DeleteEvents, ${issueEvent} IssueCommentEvents, ${pullEvent} PullRequestEvents, and ${pushEvent} PushEvents,`);
+
