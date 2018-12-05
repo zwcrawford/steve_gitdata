@@ -4409,17 +4409,18 @@ const githubData = [
     }
   ]
 // Use your knowledge of array iteration, and object property dot notation to answer the following questions about the data.
-// How many total commits were made in all of Steve's events?
-// How many of each event type are there? (PullRequestEvent, PushEvent, etc)
-// List all Github users who submitted a pull request that was approved by Steve.
-// List all repositories on which Steve had an event, and show how many events were on each one.
-// Which event had the most number of commits?
-// Which programming langugages were affected by Steve's events?
-// What programming language was the most affected by Steve's events?
+// 1. How many total commits were made in all of Steve's events?
+// 2. How many of each event type are there? (PullRequestEvent, PushEvent, etc)
+// 3. List all Github users who submitted a pull request that was approved by Steve.
+// 4. List all repos on which Steve had an event, and show how many events were on each one.
+// 5. Which event had the most number of commits?
+// 6. Which programming langugages were affected by Steve's events?
+// 7. What programming language was the most affected by Steve's events?
 
-//console.log(githubData); //List in console to view.
-
+/*******************************************************/
 // Question 1. How many total commits in the 30 events?
+
+// Answer 1.
 
 // Initialize a variable to hold the commits counter.
 let commits = 0;
@@ -4431,18 +4432,17 @@ for (let i = 0; i < githubData.length; i++) {
     const commitCount = githubData[i].payload.commits.length;
     // Add each commit instance to commits.
     commits += commitCount;
-  }
-}
-// Answer 1.
+  };
+};
 console.log(`Answer 1: ${commits} total commits.`);
 
 /*******************************************************/
-// Question 2. How many of each event type are there? (PullRequestEvent, PushEvent, etc)
+// Question 2. How many of each event type are there? (PullRequestEvent, PushEvent, etc)?
 
 // Answer 2.
 
 //Add gitHubData Array to console for reference.
-console.log(githubData);
+//console.log(githubData);
 
 // declare some dope variables.
 let createEvent = 0;
@@ -4473,3 +4473,48 @@ for (let i = 0; i < githubData.length; i++) {
 
 console.log(`Answer 2: There are ${createEvent} CreateEvents, ${deleteEvent} DeleteEvents, ${issueEvent} IssueCommentEvents, ${pullEvent} PullRequestEvents, and ${pushEvent} PushEvents,`);
 
+/*******************************************************/
+// Question 3. List all Github users who submitted a pull request that was approved by Steve.
+
+//Add gitHubData Array to console for reference.
+console.log(githubData);
+
+// Answer 3.
+
+// Declare a new array to hold Steve's approvals.
+let userList = [];
+
+// Loop through to find Steve merged_by.login
+for (let i = 0; i < githubData.length; i++) {
+  if (githubData[i].type === "PullRequestEvent" && githubData[i].actor.login === "stevebrownlee") {
+    // Find the user who logged in to make the pull request.
+    userList += `${githubData[i].payload.pull_request.user.login}, `;
+  };
+};
+console.log(`Answer 3: The following Pull Requests were approved by Steve: ${userList}, `);
+
+/*******************************************************/
+// Question 4. List all repos on which Steve had an event, and show how many events were on each one.
+
+// Answer 4:
+
+let bangazonLLC = 0;
+let clientSideMastery = 0;
+let brendaCakeStore = 0;
+let vpsSetup = 0;
+
+for (let i = 0; i < githubData.length; i++) {
+  if (githubData[i].actor.login === "stevebrownlee" && githubData[i].repo.name === "nashville-software-school/bangazon-llc") {
+    bangazonLLC++;
+  } else if (githubData[i].actor.login === "stevebrownlee" && githubData[i].repo.name === "nss-day-cohort-27/brenda-snack-cake-store") {
+    brendaCakeStore++;
+  } else if (githubData[i].actor.login === "stevebrownlee" && githubData[i].repo.name === "nashville-software-school/client-side-mastery") {
+    clientSideMastery++;
+  } else {
+    vpsSetup++;
+  };
+};
+console.log(`Answer 4: bangazonLLC - ${bangazonLLC}, brendaCakeStore - ${brendaCakeStore}, clientSideMastery - ${clientSideMastery}, vpsSetup - ${vpsSetup}`);
+
+/*******************************************************/
+// Question 5. Which event had the most number of commits?
