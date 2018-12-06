@@ -1,5 +1,7 @@
 // Create a new project directory. Set up the standard files. Then copy the contents of Github data file that contains data about 30 of Steve Brownlee's events.
 
+// All answers for the following problems are displayed in the console.
+
 const githubData = [
     {
       "id": "8033299496",
@@ -4454,7 +4456,7 @@ let pushEvent = 0;
 // Setup to do some loops.
 
 for (let i = 0; i < githubData.length; i++) {
-  if (githubData[i].type ==="CreateEvent") {
+  if (githubData[i].type === "CreateEvent") {
     createEvent++;
   };
   if ("DeleteEvent" === githubData[i].type) {
@@ -4477,7 +4479,7 @@ console.log(`Answer 2: There are ${createEvent} CreateEvents, ${deleteEvent} Del
 // Question 3. List all Github users who submitted a pull request that was approved by Steve.
 
 //Add gitHubData Array to console for reference.
-console.log(githubData);
+//console.log(githubData);
 
 // Answer 3.
 
@@ -4518,3 +4520,61 @@ console.log(`Answer 4: bangazonLLC - ${bangazonLLC}, brendaCakeStore - ${brendaC
 
 /*******************************************************/
 // Question 5. Which event had the most number of commits?
+
+//Add gitHubData Array to console for reference.
+//console.log(githubData);
+
+// declare some dope variables.
+let createEvt = 0;
+let deleteEvt = 0;
+let issueEvt = 0;
+let pullEvt = 0;
+let pushEvt = 0;
+
+for (let i = 0; i < githubData.length; i++) {
+  if (githubData[i].type === createEvt && "commits" in githubData[i].payload) {
+    createEvt++;
+  } else if (githubData[i].type === deleteEvt && "commits" in githubData[i].payload) {
+    deleteEvt++;
+  } else if (githubData[i].type === issueEvt && "commits" in githubData[i].payload) {
+    issueEvt++;
+  } else if (githubData[i].type === pullEvt && "commits" in githubData[i].payload) {
+    pullEvt++;
+  } else {
+    pushEvt++;
+  };
+};
+console.log(`Answer 5: There are ${createEvt} CreateEvent, ${deleteEvt} DeleteEvent, ${issueEvent} IssueCommentEvent, ${pullEvt} PullRequestEvent, and ${pushEvt} PushEvent commits. PushEvent had the most commits at ${pushEvt}.`);
+
+/*******************************************************/
+// Question 6. Which programming langugages were affected by Steve's events?
+
+//Add gitHubData Array to console for reference.
+//console.log(githubData);
+
+let langArray = [];
+
+for (let i = 0; i < githubData.length; i++) {
+  if ("pull_request" in githubData[i].payload) {
+    if (githubData[i].actor.login === "stevebrownlee" || githubData[i].payload.pull_request.merged_by.login === "stevebrownlee" || githubData[i].payload.issue.user.login === "stevebrownlee" || githubData[i].payload.pull_request.user.login === "stevebrownlee" || githubData[i].payload.comment.user.login === "stevebrownlee") {
+      var repoName = githubData[i].repo.name;
+      var repoLang = githubData[i].payload.pull_request.head.repo.language;
+      if (langArray.indexOf(langArray) === -1) {
+        langArray.push(repoLang);
+      };
+    };
+  };
+};
+
+let pythonCount = [];
+let jsCount = [];
+
+for (let i = 0; i < langArray.length; i++) {
+  if (langArray[i] === "Python") {
+    pythonCount.push(langArray[i]);
+  } else if (langArray[i] === "JavaScript") {
+    jsCount.push(langArray[i]);
+  };
+};
+//console.log(langArray);
+console.log(`Answer 6 and 7: The following languages were affected by Steve's events: ${pythonCount[0]} and ${jsCount[1]}.`);
